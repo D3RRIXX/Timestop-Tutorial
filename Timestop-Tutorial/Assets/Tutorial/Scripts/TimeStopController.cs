@@ -12,6 +12,8 @@ public class TimeStopController : MonoBehaviour
 	
 	private VolumeProfile _volume;
 	private AudioSource _audioSource;
+
+	private bool _stoppedTime;
 	
 	private LensDistortion _lensDistortion;
 	private ColorAdjustments _colorAdjustments;
@@ -27,13 +29,15 @@ public class TimeStopController : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.T))
+		if (Input.GetKeyDown(KeyCode.T) && _stoppedTime)
 			StopTime();
 	}
 
 	private void StopTime()
 	{
 		_audioSource.PlayOneShot(_timeStopClip);
+
+		_stoppedTime = true;
 		
 		Sequence sequence = DOTween.Sequence();
 		sequence.Append(GetDistortionSequence());
