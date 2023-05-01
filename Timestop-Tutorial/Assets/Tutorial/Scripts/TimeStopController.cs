@@ -43,13 +43,19 @@ public class TimeStopController : MonoBehaviour
 	{
 		_audioSource.PlayOneShot(_timeStopClip);
 
-		_stoppedTime = true;
+		SetStoppedTime(true);
 		
 		Sequence sequence = DOTween.Sequence();
 		sequence.Append(GetDistortionSequence(_stopTransitionDuration));
 		sequence.Insert(0f, GetHueShift(_colorAdjustments.hueShift.max, _stopTransitionDuration));
 		sequence.AppendCallback(() => _colorAdjustments.saturation.value = _colorAdjustments.saturation.min);
 		sequence.OnComplete(() => StartCoroutine(ResumeTimeOnFinish()));
+	}
+
+	private void SetStoppedTime(bool value)
+	{
+		_stoppedTime = value;
+		TimeStopToggled?.Invoke(value);
 	}
 
 	private IEnumerator ResumeTimeOnFinish()
@@ -67,7 +73,7 @@ public class TimeStopController : MonoBehaviour
 		sequence.Append(GetDistortionSequence(_resumeTransitionDuration));
 		sequence.InsertCallback(0f, () => _colorAdjustments.saturation.value = 0f);
 		sequence.Insert(0f, GetHueShift(0f, _resumeTransitionDuration));
-		sequence.OnComplete(() => _stoppedTime = false);
+		sequence.OnComplete(() => SetStoppedTime(false));
 	}
 
 	private Tween GetHueShift(float endValue, float duration)
