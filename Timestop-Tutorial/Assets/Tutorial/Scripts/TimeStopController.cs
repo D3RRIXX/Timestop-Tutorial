@@ -33,7 +33,7 @@ public class TimeStopController : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.T) && _stoppedTime)
+		if (Input.GetKeyDown(KeyCode.T) && !_stoppedTime)
 			StopTime();
 	}
 
