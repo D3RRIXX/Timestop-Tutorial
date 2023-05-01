@@ -29,13 +29,21 @@ public class TimeStopController : MonoBehaviour
 
 	private void StopTime()
 	{
+		Sequence sequence = DOTween.Sequence();
+		sequence.Append(GetDistortionSequence());
+	}
+
+	private Sequence GetDistortionSequence()
+	{
+		Sequence sequence = DOTween.Sequence();
 		float GetDistortion() => _lensDistortion.intensity.value;
 		void SetDistortion(float value) => _lensDistortion.intensity.value = value;
-		
+
 		float duration = _transitionDuration / 2.5f;
-		Sequence sequence = DOTween.Sequence();
 		sequence.Append(DOTween.To(GetDistortion, SetDistortion, _targetDistortion, duration));
 		sequence.Append(DOTween.To(GetDistortion, SetDistortion, -_targetDistortion, duration / 2f));
 		sequence.Append(DOTween.To(GetDistortion, SetDistortion, 0f, duration));
+
+		return sequence;
 	}
 }
