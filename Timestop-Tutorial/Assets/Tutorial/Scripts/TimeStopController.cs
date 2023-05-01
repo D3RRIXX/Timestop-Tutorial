@@ -34,6 +34,8 @@ public class TimeStopController : MonoBehaviour
 		
 		float duration = _transitionDuration / 2.5f;
 		Sequence sequence = DOTween.Sequence();
-		sequence.Append(DOTween.To(GetDistortion, SetDistortion, _targetDistortion, duration))
+		sequence.Append(DOTween.To(GetDistortion, SetDistortion, _targetDistortion, duration));
+		sequence.Append(DOTween.To(GetDistortion, SetDistortion, -_targetDistortion, duration / 2f));
+		sequence.Append(DOTween.To(GetDistortion, SetDistortion, 0f, duration));
 	}
 }
