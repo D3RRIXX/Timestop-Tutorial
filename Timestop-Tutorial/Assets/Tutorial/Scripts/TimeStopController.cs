@@ -6,8 +6,6 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(Volume))]
 public class TimeStopController : MonoBehaviour
 {
-	[SerializeField] private int _timeStopDuration = 5;
-
 	private VolumeProfile _volume;
 	private ColorAdjustments _colorAdjustments;
 	private LensDistortion _lensDistortion;
@@ -28,6 +26,6 @@ public class TimeStopController : MonoBehaviour
 
 	private void StopTime()
 	{
-
+		Sequence sequence = DOTween.Sequence();
 	}
 }
