@@ -14,6 +14,7 @@ public class TimeStopController : MonoBehaviour
 	[SerializeField] private float _resumeTransitionDuration = 1.75f;
 	[SerializeField] private AudioClip _timeStopClip;
 	[SerializeField] private AudioClip _timeResumeClip;
+	[SerializeField] private AudioClip[] _tickClips;
 	
 	private VolumeProfile _volume;
 	private AudioSource _audioSource;

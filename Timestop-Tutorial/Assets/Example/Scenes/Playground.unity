@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fbe96d797174e4eb9096afb00e432c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeStopDuration: 3
+  _timeStopDuration: 5
   _targetDistortion: 0.7
   _stopTransitionDuration: 2
   _resumeTransitionDuration: 1.75
