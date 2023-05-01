@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -18,7 +19,8 @@ public class TimeStopController : MonoBehaviour
 	private AudioSource _audioSource;
 
 	private bool _stoppedTime;
-	
+	public static event Action<bool> TimeStopToggled; 
+
 	private LensDistortion _lensDistortion;
 	private ColorAdjustments _colorAdjustments;
 
