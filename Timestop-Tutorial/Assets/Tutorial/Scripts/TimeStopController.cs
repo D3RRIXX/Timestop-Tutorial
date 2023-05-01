@@ -3,20 +3,24 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-[RequireComponent(typeof(Volume))]
+[RequireComponent(typeof(Volume), typeof(AudioSource))]
 public class TimeStopController : MonoBehaviour
 {
 	[SerializeField] private float _targetDistortion = 0.7f;
 	[SerializeField] private float _transitionDuration = 2f;
+	[SerializeField] private AudioClip _timeStopClip;
 	
 	private VolumeProfile _volume;
-	private ColorAdjustments _colorAdjustments;
+	private AudioSource _audioSource;
+	
 	private LensDistortion _lensDistortion;
+	private ColorAdjustments _colorAdjustments;
 
 	private void Awake()
 	{
 		_volume = GetComponent<Volume>().profile;
-		
+		_audioSource = GetComponent<AudioSource>();
+
 		_volume.TryGet(out _colorAdjustments);
 		_volume.TryGet(out _lensDistortion);
 	}
@@ -29,6 +33,8 @@ public class TimeStopController : MonoBehaviour
 
 	private void StopTime()
 	{
+		_audioSource.PlayOneShot(_timeStopClip);
+		
 		Sequence sequence = DOTween.Sequence();
 		sequence.Append(GetDistortionSequence());
 		sequence.Insert(0f, GetHueShift(_colorAdjustments.hueShift.max, _transitionDuration));
