@@ -32,6 +32,7 @@ public class TimeStopController : MonoBehaviour
 		Sequence sequence = DOTween.Sequence();
 		sequence.Append(GetDistortionSequence());
 		sequence.Insert(0f, GetHueShift(_colorAdjustments.hueShift.max, _transitionDuration));
+		sequence.AppendCallback(() => _colorAdjustments.saturation.value = _colorAdjustments.saturation.min);
 	}
 
 	private Tween GetHueShift(float endValue, float duration)
